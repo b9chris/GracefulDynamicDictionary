@@ -33,6 +33,8 @@ namespace GracefulDynamicDictionary
 			get { return false; }
 		}
 
+
+
 		#region internalDictionary pass-through
 		public void Add(string key, object value)
 		{
@@ -66,7 +68,7 @@ namespace GracefulDynamicDictionary
 
 		public void Add(KeyValuePair<string, object> item)
 		{
-			internalDictionary.Add(item.Key, item.Value);
+			((IDictionary<string, object>)internalDictionary).Add(item);
 		}
 
 		public void Clear()
@@ -76,12 +78,12 @@ namespace GracefulDynamicDictionary
 
 		public bool Contains(KeyValuePair<string, object> item)
 		{
-			return internalDictionary.Contains(item);
+			return ((IDictionary<string, object>)internalDictionary).Contains(item);
 		}
 
 		public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
 		{
-			internalDictionary.ToArray().CopyTo(array, arrayIndex);
+			((IDictionary<string, object>)internalDictionary).CopyTo(array, arrayIndex);
 		}
 
 		public int Count
@@ -96,7 +98,7 @@ namespace GracefulDynamicDictionary
 
 		public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
 		{
-			return internalDictionary.GetEnumerator();
+			return ((IDictionary<string, object>)internalDictionary).GetEnumerator();
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
