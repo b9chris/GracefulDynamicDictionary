@@ -1,5 +1,5 @@
 #Graceful Dynamic Dictionary
-A simple repo for a Dynamic object that lets you check for unassigned/non-existent properties by simply checking for null, without throwing or having to use Reflection.
+A Dynamic object that lets you check for unassigned/non-existent properties by simply checking for null, without throwing or having to use Reflection.
 
 ##Usage
 
@@ -20,4 +20,4 @@ https://www.nuget.org/packages/GracefulDynamicDictionary/
 
 	PM> Install-Package GracefulDynamicDictionary
 
-Adapted from Microsoft's ASP.Net MVC DynamicViewDataDictionary, adapted by Chris Moschini, Brass Nine Design. http://brass9.com/
+Adapted from Microsoft's ASP.Net MVC DynamicViewDataDictionary. Adapted by Chris Moschini, Brass Nine Design. http://brass9.com/
