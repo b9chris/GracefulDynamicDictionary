@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>GracefulDynamicDictionary</id>
-		<version>1.0.0.0</version>
+		<version>1.1.0.0</version>
 		<authors>Chris Moschini</authors>
 		<owners>Brass Nine Design</owners>
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -10,7 +10,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>A Dynamic object that lets you check for unassigned/non-existent properties by simply checking for null, without throwing or having to use Reflection.</description>
 		<releaseNotes>Initial release.</releaseNotes>
-		<copyright>Copyright 2014</copyright>
+		<copyright>Copyright 2014-2019</copyright>
 		<tags>Dynamic</tags>
 		<dependencies>
 			<dependency id="Microsoft.CSharp" version="4.0.0.0" />
