@@ -11,7 +11,7 @@ namespace GracefulDynamicDictionary.Tests
 		[TestMethod]
 		public void TestMissingPropertyCheck()
 		{
-			dynamic dynamicObj = new DynamicGracefulDictionary();
+			dynamic dynamicObj = new DDict();
 			bool hasUnassignedProperty = (dynamicObj.SomeProp != null);
 			Assert.IsFalse(hasUnassignedProperty);
 		}
@@ -19,7 +19,7 @@ namespace GracefulDynamicDictionary.Tests
 		[TestMethod]
 		public void TestAssignDynamicProp()
 		{
-			dynamic dynamicObj = new DynamicGracefulDictionary();
+			dynamic dynamicObj = new DDict();
 			dynamicObj.SomeProp = "A";
 			Assert.AreEqual("A", dynamicObj.SomeProp);
 		}

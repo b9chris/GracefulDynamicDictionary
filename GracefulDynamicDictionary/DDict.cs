@@ -3,14 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 
-
 namespace GracefulDynamicDictionary
 {
-	// Based on DynamicViewDataDictionary
-	// https://github.com/ASP-NET-MVC/aspnetwebstack/blob/master/src/System.Web.Mvc/DynamicViewDataDictionary.cs
-	public class DynamicGracefulDictionary : DynamicObject
+	public class DDict : DynamicObject
 	{
-		protected GracefulDictionary dictionary = new GracefulDictionary();
+		protected GracefulDictionary dictionary;
+
+		public DDict()
+		{
+			dictionary = new GracefulDictionary();
+		}
+
+		/// <summary>
+		/// Creates a DDict with a passed-in string/object Dictionary as its internal dictionary.
+		/// The internal dictionary will be modified as the DDict changes.
+		/// </summary>
+		public DDict(IDictionary<string, object> basis)
+		{
+			dictionary = new GracefulDictionary(basis);
+		}
+
+
 
 		public GracefulDictionary GetDictionary()
 		{
@@ -26,7 +39,7 @@ namespace GracefulDynamicDictionary
 
 		public override bool TryGetMember(GetMemberBinder binder, out object result)
 		{
-			result = dictionary[binder.Name];	// Never throws; null if not present
+			result = dictionary[binder.Name];   // Never throws; null if not present
 			return true;
 		}
 

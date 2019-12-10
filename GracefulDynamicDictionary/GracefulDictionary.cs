@@ -7,18 +7,32 @@ namespace GracefulDynamicDictionary
 {
 	// Based on ASP.Net MVC ViewDataDictionary
 	// https://github.com/ASP-NET-MVC/aspnetwebstack/blob/master/src/System.Web.Mvc/ViewDataDictionary.cs
-	public class GracefulDictionary : IDictionary<string, object>
+	public class GracefulDictionary<TKey, TValue> : IDictionary<TKey, TValue>
 	{
-		protected Dictionary<string, object> internalDictionary = new Dictionary<string, object>();
+		protected IDictionary<TKey, TValue> internalDictionary;
+
+		public GracefulDictionary()
+		{
+			internalDictionary = new Dictionary<TKey, TValue>();
+		}
+
+		/// <summary>
+		/// Creates a GracefulDictionary with a passed-in string/object Dictionary as its internal dictionary.
+		/// The internal dictionary will be modified as the GracefulDictionary changes.
+		/// </summary>
+		public GracefulDictionary(IDictionary<TKey, TValue> basis)
+		{
+			internalDictionary = basis;
+		}
 
 
 
-		public object this[string key]
+		public TValue this[TKey key]
 		{
 			get
 			{
 				// Always return something without throwing. Return null if no value.
-				object val = null;
+				TValue val = default;
 				internalDictionary.TryGetValue(key, out val);
 				return val;
 			}
@@ -27,7 +41,7 @@ namespace GracefulDynamicDictionary
 				internalDictionary[key] = value;
 			}
 		}
-		
+
 		public bool IsReadOnly
 		{
 			get { return false; }
@@ -36,39 +50,39 @@ namespace GracefulDynamicDictionary
 
 
 		#region internalDictionary pass-through
-		public void Add(string key, object value)
+		public void Add(TKey key, TValue value)
 		{
 			internalDictionary.Add(key, value);
 		}
 
-		public bool ContainsKey(string key)
+		public bool ContainsKey(TKey key)
 		{
 			return internalDictionary.ContainsKey(key);
 		}
 
-		public ICollection<string> Keys
+		public ICollection<TKey> Keys
 		{
 			get { return internalDictionary.Keys; }
 		}
 
-		public bool Remove(string key)
+		public bool Remove(TKey key)
 		{
 			return internalDictionary.Remove(key);
 		}
 
-		public bool TryGetValue(string key, out object value)
+		public bool TryGetValue(TKey key, out TValue value)
 		{
 			return internalDictionary.TryGetValue(key, out value);
 		}
 
-		public ICollection<object> Values
+		public ICollection<TValue> Values
 		{
 			get { return internalDictionary.Values; }
 		}
 
-		public void Add(KeyValuePair<string, object> item)
+		public void Add(KeyValuePair<TKey, TValue> item)
 		{
-			((IDictionary<string, object>)internalDictionary).Add(item);
+			((IDictionary<TKey, TValue>)internalDictionary).Add(item);
 		}
 
 		public void Clear()
@@ -76,14 +90,14 @@ namespace GracefulDynamicDictionary
 			internalDictionary.Clear();
 		}
 
-		public bool Contains(KeyValuePair<string, object> item)
+		public bool Contains(KeyValuePair<TKey, TValue> item)
 		{
-			return ((IDictionary<string, object>)internalDictionary).Contains(item);
+			return ((IDictionary<TKey, TValue>)internalDictionary).Contains(item);
 		}
 
-		public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
+		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
 		{
-			((IDictionary<string, object>)internalDictionary).CopyTo(array, arrayIndex);
+			((IDictionary<TKey, TValue>)internalDictionary).CopyTo(array, arrayIndex);
 		}
 
 		public int Count
@@ -91,14 +105,14 @@ namespace GracefulDynamicDictionary
 			get { return internalDictionary.Count; }
 		}
 
-		public bool Remove(KeyValuePair<string, object> item)
+		public bool Remove(KeyValuePair<TKey, TValue> item)
 		{
 			return Remove(item);
 		}
 
-		public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
-			return ((IDictionary<string, object>)internalDictionary).GetEnumerator();
+			return ((IDictionary<TKey, TValue>)internalDictionary).GetEnumerator();
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -106,5 +120,18 @@ namespace GracefulDynamicDictionary
 			return internalDictionary.GetEnumerator();
 		}
 		#endregion
+	}
+
+
+
+	public class GracefulDictionary : GracefulDictionary<string, object>
+	{
+		public GracefulDictionary()
+			: base()
+		{ }
+
+		public GracefulDictionary(IDictionary<string, object> basis)
+			: base(basis)
+		{ }
 	}
 }

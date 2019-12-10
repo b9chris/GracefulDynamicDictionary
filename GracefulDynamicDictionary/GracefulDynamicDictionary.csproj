@@ -39,8 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicGracefulDictionary.cs" />
+    <Compile Include="DDict.cs" />
     <Compile Include="GracefulDictionary.cs" />
+    <Compile Include="GracefulStringDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
